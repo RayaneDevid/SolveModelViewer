@@ -1,18 +1,24 @@
 import { useViewerStore } from '@/stores/viewer';
 import { AnimationMixer } from '@/components/viewer/AnimationMixer';
+import { SkinSelector } from '@/components/viewer/SkinSelector';
 
 interface ViewerControlsProps {
   onFullscreen?: () => void;
 }
 
 export function ViewerControls({ onFullscreen }: ViewerControlsProps) {
-  const { isWireframe, toggleWireframe, availableAnimations } = useViewerStore();
+  const { isWireframe, toggleWireframe, availableAnimations, availableSkins } = useViewerStore();
 
   return (
     <div className="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-3 pointer-events-none">
       {availableAnimations.length > 0 && (
         <div className="pointer-events-auto glass rounded-xl px-3 py-2 self-start">
           <AnimationMixer />
+        </div>
+      )}
+      {availableSkins.length > 1 && (
+        <div className="pointer-events-auto glass rounded-xl px-3 py-2 self-start">
+          <SkinSelector />
         </div>
       )}
 

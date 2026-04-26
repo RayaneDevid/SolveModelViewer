@@ -1,12 +1,18 @@
 import { create } from 'zustand';
 
+export interface SkinOption {
+  name: string;
+  color: string;
+}
+
 interface ViewerState {
   currentAnimation: string | null;
   availableAnimations: string[];
-  skinIndex: number;
+  availableSkins: SkinOption[];
+  skinIndex: number | null;
   isWireframe: boolean;
   setAnimation: (name: string | null) => void;
-  setSkinIndex: (index: number) => void;
+  setSkinIndex: (index: number | null) => void;
   toggleWireframe: () => void;
   reset: () => void;
 }
@@ -14,7 +20,8 @@ interface ViewerState {
 export const useViewerStore = create<ViewerState>((set) => ({
   currentAnimation: null,
   availableAnimations: [],
-  skinIndex: 0,
+  availableSkins: [],
+  skinIndex: null,
   isWireframe: false,
   setAnimation: (currentAnimation) => set({ currentAnimation }),
   setSkinIndex: (skinIndex) => set({ skinIndex }),
@@ -23,7 +30,8 @@ export const useViewerStore = create<ViewerState>((set) => ({
     set({
       currentAnimation: null,
       availableAnimations: [],
-      skinIndex: 0,
+      availableSkins: [],
+      skinIndex: null,
       isWireframe: false,
     }),
 }));
