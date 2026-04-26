@@ -38,7 +38,7 @@ export function ModelViewer({ url, className = '' }: ModelViewerProps) {
         dpr={[1, 2]}
         frameloop={currentAnim ? 'always' : 'demand'}
         gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
-        onCreated={({ gl }) => { gl.toneMappingExposure = 0.0; }}
+        onCreated={({ gl }) => { gl.toneMappingExposure = 0.1; }}
       >
         <Suspense fallback={null}>
           <ViewerStage>
