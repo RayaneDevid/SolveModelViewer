@@ -26,17 +26,21 @@ export function ModelLoader({ url }: ModelLoaderProps) {
   }, [names]);
 
   useEffect(() => {
-    const seen = new Map<string, string>();
+    const seen = new Map<string, { color: string; name: string }>();
     scene.traverse((obj) => {
       if ((obj as Mesh).isMesh) {
         const mesh = obj as Mesh;
         const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
         mats.forEach((mat) => {
-          if (!seen.has(mat.name)) seen.set(mat.name, getMaterialColor(mat));
+          if (!seen.has(mat.uuid)) seen.set(mat.uuid, { color: getMaterialColor(mat), name: mat.name });
         });
       }
     });
-    const skins = Array.from(seen.entries()).map(([name, color]) => ({ name, color }));
+    const skins = Array.from(seen.entries()).map(([uuid, { color, name }], i) => ({
+      uuid,
+      color,
+      name: name || `Texture ${i + 1}`,
+    }));
     useViewerStore.setState({ availableSkins: skins, skinIndex: null });
   }, [scene]);
 
@@ -63,12 +67,12 @@ export function ModelLoader({ url }: ModelLoaderProps) {
       });
       return;
     }
-    const selectedName = availableSkins[skinIndex]?.name;
+    const selectedUuid = availableSkins[skinIndex]?.uuid;
     scene.traverse((obj) => {
       if ((obj as Mesh).isMesh) {
         const mesh = obj as Mesh;
         const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-        mesh.visible = mats.some((m) => m.name === selectedName);
+        mesh.visible = mats.some((m) => m.uuid === selectedUuid);
       }
     });
   }, [scene, skinIndex, availableSkins]);

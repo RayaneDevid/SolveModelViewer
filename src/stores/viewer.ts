@@ -3,6 +3,7 @@ import { create } from 'zustand';
 export interface SkinOption {
   name: string;
   color: string;
+  uuid: string;
 }
 
 interface ViewerState {
