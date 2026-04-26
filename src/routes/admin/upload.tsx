@@ -2,6 +2,7 @@ import { useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stage, useGLTF } from '@react-three/drei';
+import * as THREE from 'three';
 import { Suspense } from 'react';
 import { useTags } from '@/hooks/useTags';
 import { useCreateTag } from '@/hooks/useTags';
@@ -48,10 +49,11 @@ function ThumbnailCanvas({
         <Canvas
           ref={canvasRef as React.Ref<HTMLCanvasElement>}
           camera={{ position: [0, 1.5, 3], fov: 50 }}
-          gl={{ preserveDrawingBuffer: true }}
+          gl={{ preserveDrawingBuffer: true, antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
+          onCreated={({ gl }) => { gl.toneMappingExposure = 0.2; }}
         >
           <Suspense fallback={null}>
-            <Stage intensity={0.5} environment="city" adjustCamera={1.2}>
+            <Stage intensity={0.3} environment="studio" adjustCamera={1.2}>
               <PreviewModel url={url} />
             </Stage>
           </Suspense>
