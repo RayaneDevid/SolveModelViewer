@@ -1,5 +1,4 @@
 import { TagBadge } from '@/components/tags/TagBadge';
-import type { Tag } from '@/api/tags';
 
 const axisLabels: Record<string, string> = {
   type: 'Type',
@@ -9,9 +8,17 @@ const axisLabels: Record<string, string> = {
   misc: 'Divers',
 };
 
+interface TagLike {
+  id: string;
+  slug: string;
+  label: string;
+  axis: string;
+  color: string | null;
+}
+
 interface TagAxisGroupProps {
   axis: string;
-  tags: Tag[];
+  tags: TagLike[];
   selectedTags?: string[];
   onToggle?: (slug: string) => void;
 }

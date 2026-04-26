@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useModel } from '@/hooks/useModels';
 import { useViewerStore } from '@/stores/viewer';
 import { ModelViewer } from '@/components/viewer/ModelViewer';
-import { TagBadge } from '@/components/tags/TagBadge';
 import { TagAxisGroup } from '@/components/tags/TagAxisGroup';
 import { Spinner } from '@/components/ui/Spinner';
 import { formatBytes, formatRelativeDate } from '@/lib/format';
