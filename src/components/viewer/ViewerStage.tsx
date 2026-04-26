@@ -8,8 +8,8 @@ interface ViewerStageProps {
 export function ViewerStage({ children }: ViewerStageProps) {
   return (
     <Stage
-      intensity={0.5}
-      environment="city"
+      intensity={0.3}
+      environment="studio"
       shadows={{ type: 'contact', opacity: 0.3, blur: 2 }}
       adjustCamera={1.2}
     >
